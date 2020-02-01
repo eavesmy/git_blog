@@ -13,6 +13,8 @@ func main() {
 	router.Get("/blog/detail/:title", handler.Detail)
 
 	app.Use(func(ctx *gear.Context) error {
+
+		ctx.SetHeader("Access-Control-Allow-Origin", "*")
 		return nil
 	})
 
