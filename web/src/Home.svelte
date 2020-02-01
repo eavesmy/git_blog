@@ -30,7 +30,7 @@
 	function ToBlog(){
 		const $this = this;
 		let id = $this.getAttribute("data-id");
-		navigate(`/blog/${id}`,{replace:true});
+		navigate(`/blog/${id}`);
 	}
 
 </script>
