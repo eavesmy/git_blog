@@ -1,17 +1,5 @@
-import { navigate } from "svelte-routing";
+import { Host } from './const.js';
 
-export function Post(url,data) {
-	return fetch(url,{
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"x-access-token": "eavesmy"
-		},
-		body: JSON.stringify(data),
-	}).then(res => {
-		if(res.status !== 200) {
-			navigate("/login",{replace:true});
-		}
-		return res.json();
-	});
+export default function Get(path){
+	return fetch(Host + path);
 }

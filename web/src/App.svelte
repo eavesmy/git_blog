@@ -1,23 +1,36 @@
 <script>
-	  import { onMount } from 'svelte';
-	  import { Router, Link, Route } from "svelte-routing";
-	  import Home from './Home.svelte';
-	  import Login from './Login.svelte';
-
-	  let url = "";
+	export let Title;
+	export let Slogan;
 	
-	  onMount(async function(){
-		console.log(123)
-	  });
+	import { Router, Link, Route } from "svelte-routing";
+	import Home from './Home.svelte'
+	import Blog from './Blog.svelte'
+
+	let List = [];
+	let url = ""
 
 </script>
 
-<Router url="{url}">
-	<Route path="/login" component="{Login}"/>
-	<Route path="/" component="{Home}"/>
-	<Route path="/">
-		<Home />
-	</Route>
-</Router>
 
-<style></style>
+<main class="card">
+	<div class="card-header">
+		<section class="hero">
+			<div class="hero-body">
+				<h1 class="title">
+					{Title}
+				</h1>
+				<h3 class="subtitle">
+					{Slogan}
+				</h3>
+			</div>
+		</section>
+	</div>
+
+	<Router url={url}>
+		<Route path="/" component="{Home}"/>
+		<Route path="/blog/:title" component="{Blog}"/>
+	</Router>
+</main>
+
+<style>
+</style>
