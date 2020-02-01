@@ -1602,7 +1602,7 @@ var app = (function () {
 
     const Title = "Eaves";
     const Slogan = "守得云开见月明";
-    const Host = "http://eva7base.com:8080";
+    const Host = "https://api.eva7base.com";
     const PATH_LIST = "/blog/list";
     const PATH_BLOG = "/blog/detail";
 
@@ -8386,7 +8386,7 @@ var app = (function () {
     		});
 
     	const route1 = new Route({
-    			props: { path: "/blog/:title", component: Blog },
+    			props: { path: "#:title", component: Blog },
     			$$inline: true
     		});
 

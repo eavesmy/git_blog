@@ -28,7 +28,7 @@
 
 	<Router url={url}>
 		<Route path="/" component="{Home}"/>
-		<Route path="/blog/:title" component="{Blog}"/>
+		<Route path="#:title" component="{Blog}"/>
 	</Router>
 </main>
 
