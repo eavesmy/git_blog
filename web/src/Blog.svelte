@@ -5,11 +5,9 @@
 	import marked from 'marked';
 
 	export let title;
-	export let location;
 	let content = "";
 	
 	onMount(async function(){
-		console.log(location);
 		let res = await Get(PATH_BLOG + "/" + title);
 		res = await res.text();
 		content = marked(res);

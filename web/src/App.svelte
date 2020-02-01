@@ -2,12 +2,22 @@
 	export let Title;
 	export let Slogan;
 	
+	import { beforeUpdate } from "svelte";
 	import { Router, Link, Route } from "svelte-routing";
+	import { navigate } from "svelte-routing";
 	import Home from './Home.svelte'
 	import Blog from './Blog.svelte'
 
 	let List = [];
 	let url = ""
+
+	beforeUpdate(async function(){
+		var urlParams = new URLSearchParams(location.search);
+		let title = urlParams.get("blog");
+		if(!title) return
+		
+		navigate(`/blog/${title}`,{replace:true});
+	})
 
 </script>
 
@@ -28,7 +38,7 @@
 
 	<Router url={url}>
 		<Route path="/" component="{Home}"/>
-		<Route path="#:title" component="{Blog}"/>
+		<Route path="/blog/:title" component="{Blog}"/>
 	</Router>
 </main>
 
