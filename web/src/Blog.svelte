@@ -6,7 +6,6 @@
 	import marked from 'marked';
 
 	export let title;
-	export let location;
 	let content = "";
 	
 	onMount(async function(){
