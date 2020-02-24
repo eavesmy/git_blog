@@ -1,6 +1,7 @@
 <script>
 	import { onMount, afterUpdate } from 'svelte';
 	import { PATH_BLOG } from './lib/const.js';
+	import { navigate } from "svelte-routing";
 	import Get from './lib/net.js';
 	import marked from 'marked';
 
@@ -9,15 +10,18 @@
 	let content = "";
 	
 	onMount(async function(){
-		console.log(location);
 		let res = await Get(PATH_BLOG + "/" + title);
+		if(res.status !== 200) {
+			navigate("/");
+			return 
+		}
 		res = await res.text();
 		content = marked(res);
-		let area = document.querySelector("#content")
-		area.setAttribute("contenteditable","false")
 	})
 
 </script>
-<div id="content" class="card-content" contenteditable="true" bind:innerHTML={content}/>
+<div id="content" class="card-content">
+	{@html content}
+</div>
 <style>
 </style>

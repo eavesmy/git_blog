@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 	import { Router, Link, Route } from "svelte-routing";
 	import { navigate } from "svelte-routing";
 	import { PATH_LIST } from './lib/const.js';
@@ -30,14 +31,14 @@
 	function ToBlog(){
 		const $this = this;
 		let id = $this.getAttribute("data-id");
-		navigate(`/blog/${id}`,{replace:true});
+		navigate(`/blog/${id}`);
 	}
 
 </script>
 
 <div class="card-content">
 	{#each List as item}
-		<div class="container card" style="border-left:6px solid {randomColor()};">
+		<div class="container card" style="border-left:6px solid {randomColor()};" transition:fly>
 			<a on:click={ToBlog} class="card-content columns" data-id={item.Filename}>
 				<div class="column">
 					<h3 class="subtitle is-4">
