@@ -13,7 +13,20 @@
 	let List = [];
 	let url = ""
 
+
 	onMount(async ()=>{
+	
+		var _hmt = _hmt || [];
+
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?58398e0930b0f096f0003d8daa533dae";
+		  hm.type = "text/javascript";
+		  var s = document.getElementsByTagName("script")[0];
+		  s.parentNode.insertBefore(hm, s);
+		})();
+
+
 		let blog = new URL(location.href).searchParams.get("blog");
 		if (!!blog) {
 			navigate(`/blog/${blog}`,{repalce: true});
@@ -51,7 +64,6 @@
 	<footer class="footer">
 		<div class="container">
 			<a href="https://github.com/eavesmy"> Github </a>
-			<script src="https://v1.cnzz.com/z_stat.php?id=1278631690&amp;show=pic" type="text/javascript"></script>
 		</div>
 	</footer>
 </main>

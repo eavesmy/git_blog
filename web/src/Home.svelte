@@ -17,6 +17,11 @@
 		for(let item of res) {
 			item.LastModify = moment(item.LastModify).format("YYYY-MM-DD hh:mm")
 		}
+		
+		res.sort((a,b)=>{
+			return a.LastModify < b.LastModify;
+		});
+
 		List = res;
 	});
 
