@@ -6,8 +6,11 @@ import (
 	"github.com/teambition/gear"
 )
 
+const Root = "/data/workspace/blogs"
+const Update = 60
+
 func init() {
-	lib.InitConf()
+	lib.InitConf(Root, Update)
 }
 
 func main() {

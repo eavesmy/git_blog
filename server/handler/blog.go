@@ -1,50 +1,27 @@
 package handler
 
 import (
+	"../lib"
 	"bufio"
 	"fmt"
-	// gtype "github.com/eavesmy/golang-lib/type"
-	"../lib"
 	"github.com/teambition/gear"
 	"io/ioutil"
 	"os"
-	"path"
 )
 
 const TODO = "/home/eaves/TODO.md"
 
-var Root = "/data/workspace/blogs"
-
 func List(ctx *gear.Context) error {
 
-	// 添加分页
-
-	dir, err := ioutil.ReadDir(Root)
-	if err != nil {
-		return err
-	}
-
-	list := lib.Blogs{}
-
-	for _, fi := range dir {
-
-		name := fi.Name()
-		ext := path.Ext(name)
-
-		if ext == ".md" {
-
-			list = append(list, lib.Blogs{Filename: name, LastModify: fi.ModTime()})
-		}
-	}
-
-	return ctx.JSON(200, list)
+	// 服务器不分页，一共没多少文章，前端拿目录分页
+	return ctx.JSON(200, lib.List)
 }
 
 func Detail(ctx *gear.Context) error {
 
 	title := ctx.Param("title")
 
-	b, err := ioutil.ReadFile(Root + "/" + title)
+	b, err := ioutil.ReadFile(lib.RootConf.Root + "/" + title)
 	if err != nil {
 		return ctx.HTML(500, "Something error")
 	}

@@ -1,11 +1,5 @@
 package lib
 
-import (
-	"encoding/json"
-	"io/ioutil"
-	"log"
-)
-
 type Conf struct {
 	Root   string `json:"root"`
 	Update int    `json:"update"`
@@ -13,14 +7,8 @@ type Conf struct {
 
 var RootConf *Conf
 
-func InitConf() {
-	b, err := ioutil.ReadFile("./conf.json")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+func InitConf(root string, update int) {
 
-	json.Unmarshal(b, &RootConf)
-
-	InitDir()
+	RootConf = &Conf{Root: root, Update: update}
+	Update()
 }
