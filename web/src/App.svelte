@@ -2,45 +2,62 @@
 	export let Title;
 	export let Slogan;
 	
+	import { onMount } from 'svelte';
+	import { Router, Link, Route, navigate } from "svelte-routing";
 	import { beforeUpdate } from "svelte";
-	import { Router, Link, Route } from "svelte-routing";
-	import { navigate } from "svelte-routing";
 	import Home from './Home.svelte'
 	import Blog from './Blog.svelte'
+	import { PATH_INDEX } from './lib/const.js';
+	import Get from './lib/net.js';
 
 	let List = [];
 	let url = ""
 
-	beforeUpdate(async function(){
-		var urlParams = new URLSearchParams(location.search);
-		let title = urlParams.get("blog");
-		if(!title) return
+	onMount(async ()=>{
+		let blog = new URL(location.href).searchParams.get("blog");
+		if (!!blog) {
+			navigate(`/blog/${blog}`,{repalce: true});
+			return
+		}
 		
-		navigate(`/blog/${title}`,{replace:true});
-	})
+		let res = await Get(PATH_INDEX);
+		if(!res) return;
+
+		res = await res.text();
+		Slogan = res;
+	});
 
 </script>
 
-
-<main class="card">
-	<div class="card-header">
-		<section class="hero">
-			<div class="hero-body">
-				<h1 class="title">
-					{Title}
-				</h1>
-				<h3 class="subtitle">
-					{Slogan}
-				</h3>
-			</div>
-		</section>
-	</div>
-
-	<Router url={url}>
-		<Route path="/" component="{Home}"/>
-		<Route path="/blog/:title" component="{Blog}"/>
-	</Router>
+<main>
+	<div class="card">
+		<div class="card-header">
+			<section class="hero">
+				<div class="hero-body">
+					<h1 class="title">
+						{Title}
+					</h1>
+					<h3 class="subtitle">
+						{Slogan}
+					</h3>
+				</div>
+			</section>
+		</div>
+		<Router url={url}>
+			<Route path="/" component="{Home}"/>
+			<Route path="/blog/:title" component="{Blog}"/>
+		</Router>
+	<div>
+	<footer class="footer">
+		<div class="container">
+			<a href="https://github.com/eavesmy"> Github </a>
+			<script src="https://v1.cnzz.com/z_stat.php?id=1278631690&amp;show=pic" type="text/javascript"></script>
+		</div>
+	</footer>
 </main>
 
 <style>
+	.footer {
+		padding: 1.5rem;
+	}
 </style>
