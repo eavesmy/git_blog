@@ -2,8 +2,13 @@ package main
 
 import (
 	"./handler"
+	"./lib"
 	"github.com/teambition/gear"
 )
+
+func init() {
+	lib.InitConf()
+}
 
 func main() {
 	app := gear.New()

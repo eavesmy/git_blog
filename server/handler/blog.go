@@ -3,22 +3,17 @@ package handler
 import (
 	"bufio"
 	"fmt"
-	gtype "github.com/eavesmy/golang-lib/type"
+	// gtype "github.com/eavesmy/golang-lib/type"
+	"../lib"
 	"github.com/teambition/gear"
 	"io/ioutil"
 	"os"
 	"path"
-	"time"
 )
 
 const TODO = "/home/eaves/TODO.md"
 
 var Root = "/data/workspace/blogs"
-
-type Blog struct {
-	Filename   string
-	LastModify time.Time
-}
 
 func List(ctx *gear.Context) error {
 
@@ -29,6 +24,8 @@ func List(ctx *gear.Context) error {
 		return err
 	}
 
+	list := lib.Blogs{}
+
 	for _, fi := range dir {
 
 		name := fi.Name()
@@ -36,7 +33,7 @@ func List(ctx *gear.Context) error {
 
 		if ext == ".md" {
 
-			list = append(list, Blog{Filename: name, LastModify: fi.ModTime()})
+			list = append(list, lib.Blogs{Filename: name, LastModify: fi.ModTime()})
 		}
 	}
 
