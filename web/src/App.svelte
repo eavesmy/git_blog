@@ -43,23 +43,20 @@
 </script>
 
 <main>
-	<div class="card">
-		<div class="card-header">
-			<section class="hero">
-				<div class="hero-body">
-					<h1 class="title">
-						{Title}
-					</h1>
-					<h3 class="subtitle">
-						{Slogan}
-					</h3>
-				</div>
-			</section>
+	<section class="hero is-dark is-small">
+		<div class="hero-body">
+			<h1 class="title">
+				{Title}
+			</h1>
+			<h3 class="subtitle">
+				{Slogan}
+			</h3>
 		</div>
-		<Router url={url}>
-			<Route path="/" component="{Home}"/>
-			<Route path="/blog/:title" component="{Blog}"/>
-		</Router>
+	</section>
+	<Router url={url}>
+		<Route path="/" component="{Home}"/>
+		<Route path="/blog/:title" component="{Blog}"/>
+	</Router>
 	<div>
 	<footer class="footer">
 		<div class="container">

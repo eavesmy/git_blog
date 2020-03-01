@@ -7,23 +7,56 @@
 	import moment from 'moment';
 
 	import Get from './lib/net.js';
-
+	
+	let Top = [];
 	let List = [];
+	
+	let list = [];
+	let page = 1;
+	let count = 10;
 
 	onMount(async function(){
 		let res = await Get(PATH_LIST);
 		res = await res.json();
 
 		for(let item of res) {
+
 			item.LastModify = moment(item.LastModify).format("YYYY-MM-DD hh:mm")
+			item.ShowName = item.Filename.replace("top_","");
+
+			if(item.Filename.indexOf("top_") > -1) {
+				item.Top = true;
+				Top.push(item);
+			} else {
+				List.push(item);
+			}
 		}
 		
-		res.sort((a,b)=>{
+		Top.sort((a,b) => {
 			return a.LastModify < b.LastModify;
 		});
 
-		List = res;
+		List.sort((a,b)=>{
+			return a.LastModify < b.LastModify;
+		});
+
+		for (let item of Top) {
+			List.unshift(item);
+		}
+
+		List = List;
+		list = List;
+
+		 // GetPage();
 	});
+
+	function GetPage(){
+		page = 1;
+		let index = count * (page - 1);
+		let end = index + count;
+
+		list = List.slice(index,end)
+	}
 
 	function randomColor(){
 		let c = (~~(Math.random()*(1<<24))).toString(16);
@@ -42,12 +75,15 @@
 </script>
 
 <div class="card-content">
-	{#each List as item}
+	{#each list as item}
 		<div class="container card" style="border-left:6px solid {randomColor()};" transition:fly>
 			<a on:click={ToBlog} class="card-content columns" data-id={item.Filename}>
 				<div class="column">
+					{#if item.Top}
+					<span class="tag is-success">Mark</span>
+					{/if}
 					<h3 class="subtitle is-4">
-						{item.Filename.replace(".md","")}
+						{item.ShowName.replace(".md","")}
 					</h3>
 				</div>
 				<div class="column is-6 subtitle">
