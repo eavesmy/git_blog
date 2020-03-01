@@ -11,14 +11,14 @@ func main() {
 
 	router.Get("/blog/list", handler.List)
 	router.Get("/blog/detail/:title", handler.Detail)
+	router.Get("/blog/index", handler.Index)
 
 	app.Use(func(ctx *gear.Context) error {
-
 		ctx.SetHeader("Access-Control-Allow-Origin", "*")
 		return nil
 	})
 
 	app.UseHandler(router)
 
-	app.Listen(":9093")
+	app.Listen(":9093") // 9093
 }
