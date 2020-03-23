@@ -20,7 +20,15 @@
 
 </script>
 <div id="content" class="card-content">
-	{@html content}
+	<div class="container">
+		{@html content}
+	</div>
 </div>
 <style>
+
+	@media (min-width: 800px) {
+		.container {
+			margin: 10px 20vw;
+		}
+	}
 </style>
